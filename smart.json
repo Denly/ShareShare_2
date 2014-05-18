@@ -1,0 +1,13 @@
+{
+  "meteor": {},
+  "packages": {
+    "momentjs": {},
+    "crypto-base": {},
+    "crypto-md5": {},
+    "iron-router": {},
+    "fast-render": {},
+    "spin": {},
+    "autoform": {},
+    "iron-router-progress": {}
+  }
+}
