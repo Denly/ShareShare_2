@@ -46,7 +46,7 @@ Template.post_item.helpers({
     return html_body.autoLink();
   },
   ago: function(){
-    // if post is approved show submission time, else show creation time. 
+    // if post is approved show submission time, else show creation time.
     time = this.status == STATUS_APPROVED ? this.submitted : this.createdAt;
     return moment(time).fromNow();
   },
@@ -56,7 +56,7 @@ Template.post_item.helpers({
   },
   voted: function(){
     var user = Meteor.user();
-    if(!user) return false; 
+    if(!user) return false;
     return _.include(this.upvoters, user._id);
   },
   userAvatar: function(){
@@ -87,9 +87,9 @@ var recalculatePosition = function ($object, pArray) {
     // send object back to previous position
     $object.removeClass('animate').css("top", delta + "px");
     // then wait a little and animate it to new one
-    setTimeout(function() { 
+    setTimeout(function() {
       $object.addClass('animate').css("top", "0px")
-    }, 1);  
+    }, 1);
   }
 }
 
@@ -108,6 +108,21 @@ Template.post_item.rendered = function(){
   // // if this is *not* the first render, recalculate positions
   // if(instance.pArray.length>1)
   //   recalculatePosition($instance, instance.pArray);
+  console.log(L.tileLayer);
+  var $map = $('#map').css({
+    width: '100%',
+    height: '300px',
+    display: 'none'
+  });
+  var map = new L.map('map');
+  map.setView([23.5, 120], 7);
+  L.Icon.Default.imagePath = 'packages/leaflet/images';
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+  $('#location-trigger').on('click', function() {
+    $map.slideToggle();
+  });
 
 };
 

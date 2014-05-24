@@ -36,13 +36,13 @@ Meteor.methods({
         postInterval = Math.abs(parseInt(getSetting('postInterval', 30))),
         maxPostsPer24Hours = Math.abs(parseInt(getSetting('maxPostsPerDay', 30))),
         postId = '',
-        location='NTU_test',
+        location = 'NTU_test',
         owner='juju_test';
 
     // only let admins post as another user
     if(isAdmin(Meteor.user()))
-      userId = post.userId || user._id; 
-        
+      userId = post.userId || user._id;
+
     // check that user can post
     if (!user || !canPost(user))
       throw new Meteor.Error(601, i18n.t('You need to login or be invited to post new stories.'));
@@ -78,7 +78,8 @@ Meteor.methods({
       baseScore: 0,
       score: 0,
       inactive: false,
-      status: status
+      status: status,
+      location: location
     });
 
     if(status == STATUS_APPROVED){
@@ -139,7 +140,7 @@ Meteor.methods({
     // decrement post count
     var post = Posts.findOne({_id: postId});
     if(!Meteor.userId() || !canEditById(Meteor.userId(), post)) throw new Meteor.Error(606, 'You need permission to edit or delete a post');
-    
+
     Meteor.users.update({_id: post.userId}, {$inc: {postCount: -1}});
     Posts.remove(postId);
   }
