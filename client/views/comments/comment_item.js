@@ -69,6 +69,9 @@ Template.comment_item.created = function() {
 }
 
 Template.comment_item.rendered=function(){
+  
+  $('.headImg').css({'height':'400px', 'width':'400px'});
+
   if(this.data){
     var comment=this.data;
     var $comment=$("#"+comment._id);

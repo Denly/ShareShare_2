@@ -2070,3 +2070,25 @@ table {
         /* line 222, ../sass/partials/_mobile.scss */
         .post .post-actions li a .action {
           display: none; } }
+
+
+.info{
+  
+  display: inline-block;
+
+}
+
+.info .shareCode{
+  display: inline-block;
+  font-size: 3px;
+}
+
+.info .giver,.owner {  
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.giver-owner img {
+  border-radius: 50%;
+}
+

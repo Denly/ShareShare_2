@@ -5,6 +5,7 @@
     
 
     <ul class="post-actions"  >
+      <li><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a></li>
       <li class="post-share desktop"><a href="#" class="share-link"><i class="icon-share"></i><span class="action">{{i18n 'Share'}}</span></a>
         <div class="share-options hidden">
           <div data-url="{{#if url}}{{outgoingUrl}}{{else}}{{current_domain}}/posts/{{_id}}{{/if}}" data-text="{{headline}}" class="share-replace">
@@ -34,12 +35,27 @@
           <span class="post-sticky"><i class="icon-pin"></i><span>{{i18n "Sticky"}}</span></span>
         {{/if}}
         <h3 class="post-heading">
-          <img src="{{url}}" width='100px' height='100px' >
-          <a href="{{postLink}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
+          
+          
+            <img class='headImg' float='left' src="{{url}}" width='100px' height='100px' >
+          <!--was{{postLink}}-->
+          <div class='info post-message '>
+        
+        <div class='giver-owner'>
+          <div class='giver'><p>Giver: </p><img class='owner' src="http://graph.facebook.com/849105618437484/picture"></div>
+          <div class='owner'><p>Owner: </p><img class='owner' src="http://graph.facebook.com/849105618437484/picture"></div>
+        </div>
+        <div class='shareCode'>
+        <img class='shareCode' src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=http://localhost:3000/posts/{{_id}}"><p>ShareShare-QRCode</p>
+        </div>
+        </div>
+        <br><p>{{location}}</p><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
+        <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
           {{#if url}}<span class="post-domain">{{domain}}</span>{{/if}}
             {{#each categories}}
               <a href="{{categoryLink}}" class="post-category category-{{slug}}">{{name}}</a>
             {{/each}}
+            
         </h3>
         <p class="post-meta"><span class="points">{{votes}} <span class="unit">{{pointsUnitDisplayText}} </span></span>by  <a class="post-author" href="{{profileUrl}}">{{authorName}}</a> <span class="post-time">{{ago}}</span><span class="comments">, <a class="go-to-comments" href="/posts/{{_id}}">{{comments}} {{commentsDisplayText}}</a></span>
           {{#if can_edit}}
@@ -52,7 +68,10 @@
       </div>
     </div>
     {{#if body}}
-      <div class="post-message markdown">{{{body_formatted}}}</div>
+      <div class="post-message markdown">{{{body_formatted}}}
+        
+      </div>
+
     {{/if}}
   </div>
   {{/with}}
