@@ -5,7 +5,7 @@
 
 
     <ul class="post-actions"  >
-      <li><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a></li>
+      <!--<li><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a></li>-->
       <li class="post-share desktop"><a href="#" class="share-link"><i class="icon-share"></i><span class="action">{{i18n 'Share'}}</span></a>
         <div class="share-options hidden">
           <div data-url="{{#if url}}{{outgoingUrl}}{{else}}{{current_domain}}/posts/{{_id}}{{/if}}" data-text="{{headline}}" class="share-replace">
@@ -36,26 +36,27 @@
         {{/if}}
 
         <h3 class="post-heading">
-            <img class='headImg' float='left' src="{{url}}" width='100px' height='100px' >
+            <img class='headImg' float='left' src="{{url}}" width='330px' height='330px' >
 
           <!--was{{postLink}}-->
           <div class='info post-message '>
         
         <div class='giver-owner'>
-          <div class='giver'><p>Giver: </p><img class='giverimg' src="http://graph.facebook.com/849105618437484/picture"></div>
+          <!--<div class='giver' hidden><p>Giver: </p><img class='giverimg' src="http://graph.facebook.com/849105618437484/picture"></div>
+          -->
           <div class='owner'><p>Owner: {{owner}} </p><img class='ownerimg' src="http://graph.facebook.com/849105618437484/picture"></div>
         </div>
         <div class='get' >
-          <p>Waitting List: {{waittingList}} </p>
-        <input type='button' class='getbtn' value='To get!' > </div>
+          <!--<p>Waitting List: {{waittingList}} </p>-->
+        <input type='button' class='getbtn button' value='Get One X-bike !!!!' > </div>
         <div class='shareCode'>
-        <img class='shareCode' src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=http://localhost:3000/posts/{{_id}}"><p>ShareShare-QRCode</p>
+        <img class='shareCode' height='100px' src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=http://shareshare/meteor.com{{_id}}"><p>Get X-bike-QRCode</p>
         </div>
         </div>
-        <br><p>{{location}}{{owner}}{{why}} </p><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
+        <br><p>{{location}}{{owner}}</p><!--<a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>-->
         <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
           {{#if url}}<span class="post-domain">{{domain}}</span>{{/if}}
-          
+
             <p class="post-title" id="location-trigger">Show location</p>
             <div class="post-location">
                 <!-- <p>this is location div</p> -->
