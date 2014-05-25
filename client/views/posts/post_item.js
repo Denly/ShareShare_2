@@ -1,24 +1,89 @@
-Template.post_item.events({
+/*Template.post_item.events({
   'click .getbtn': function(){
     $('body').css('color','red');
     $('.ownerimg').attr('src','https://avatars3.githubusercontent.com/u/7588279?s=140');
-    
+
     Posts.update({_id: Posts.findOne()._id }, {$set: {owner: Posts.findOne().author }} );
-    
+
     //ex. {_id: player._id}, {$set: {score: random_score}}
-    var tmp = Posts.findOne().waittingList;
-    console.log(tmp.indexOf('pee'));
-    
-    tmp.push('pee');
-    console.log(tmp);
-    Posts.update({_id: Posts.findOne()._id }, {$set: {waittingList: tmp }});
+    // var tmp = Posts.findOne().waittingList;
+    // console.log(tmp.indexOf('pee'));
 
-    
+    // tmp.push('pee');
+    // console.log(tmp);
+    // Posts.update({_id: Posts.findOne()._id }, {$set: {waittingList: tmp }});
 
-    Meteor.call(newPostNotify,Posts.findOne());
+    //Meteor.call(newPostNotify,Posts.findOne());
+
+    var fakeLatLng = [
+        [25.053875, 121.468701],
+        [25.091191, 121.511102],
+        [25.067947, 121.553631],
+        [25.062272, 121.581483],
+        [25.042289, 121.576161],
+        [25.019609, 121.541612],
+    ];
+    Meteor.call('updateLocation', fakeLatLng, this.data._id, function(error) {
+        Meteor.call('getLocation', this.data._id, function(error, loc) {
+            if(error) {
+                throwError(error.reason);
+                console.log('cannot get location');
+            } else {
+                //latlngs = loc;
+                animateMap(loc);
+            }
+        });
+    });
+
+    function animateMap(latlngs) {
+        console.log(latlngs);
+        var pathPattern = L.polylineDecorator(latlngs, {
+          patterns: [
+            { offset: 0, repeat: 10, symbol: L.Symbol.dash({pixelSize: 6, pathOptions: {color: '#ff0000', weight: 3, opacity: 0.5}}) },
+          ]
+        }).addTo(map);
+
+        //var arrow = L.polyline([[ 42.9, -15 ], [ 44.18, -11.4 ]], {});
+        var arrowHead = L.polylineDecorator(latlngs).addTo(map);
+        var arrowOffset = 0;
+        var bikeIcon = L.icon({
+            iconUrl: 'http://i.imgur.com/iau54EZ.png',
+            iconAnchor: [16, 16]
+        });
+        var anim = window.setInterval(function() {
+            arrowHead.setPatterns([
+                //{offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
+                {
+                    offset: arrowOffset+'%',
+                    repeat: 0,
+                    symbol: L.Symbol.marker({
+                        // rotate: true,
+                        markerOptions: {
+                            icon: bikeIcon,
+                        }
+                    })
+                }
+            ]);
+            arrowOffset += 1;
+            if(arrowOffset > 100)
+                arrowOffset = 0;
+        }, 50);
+
+        /*var markerLine = L.polyline([[58.44773, -28.65234], [52.9354, -23.33496], [53.01478, -14.32617], [58.1707, -10.37109], [59.68993, -0.65918]], {}).addTo(map);
+        var markerPatterns = L.polylineDecorator(markerLine, {
+            patterns: [
+                { offset: '5%', repeat: '10%', symbol: L.Symbol.marker({
+                    markerOptions: {
+                        icon: 'http://www.wheatonbible.org/Content/10713/Icons/map-marker.png'
+                    }
+                }) }
+            ]
+        }).addTo(map);
+
+    }
   }
-});
-
+});*/
+var map, arrowHead, pathPattern;
 
 Template.post_item.created = function () {
   instance = this;
@@ -143,7 +208,7 @@ Template.post_item.rendered = function(){
     height: '300px',
     //display: 'none'
   });
-  var map = new L.map('map');
+  map = new L.map('map');
   map.setView([25.069036, 121.532731], 12);
   L.Icon.Default.imagePath = 'packages/leaflet/images';
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -177,15 +242,16 @@ Template.post_item.rendered = function(){
   });
 
   function animateMap(latlngs) {
-    console.log(latlngs)
-    var pathPattern = L.polylineDecorator(latlngs, {
+    console.log(latlngs);
+    pathPattern = L.polylineDecorator(latlngs, {
       patterns: [
         { offset: 0, repeat: 10, symbol: L.Symbol.dash({pixelSize: 6, pathOptions: {color: '#ff0000', weight: 3, opacity: 0.5}}) },
       ]
     }).addTo(map);
 
     //var arrow = L.polyline([[ 42.9, -15 ], [ 44.18, -11.4 ]], {});
-    var arrowHead = L.polylineDecorator(latlngs).addTo(map);
+    arrowHead = L.polylineDecorator(latlngs).addTo(map);
+
     var arrowOffset = 0;
     var bikeIcon = L.icon({
         iconUrl: 'http://i.imgur.com/iau54EZ.png',
@@ -267,5 +333,93 @@ Template.post_item.events({
     $this.toggleClass("active");
     $share.toggleClass("hidden");
     $share.find('.share-replace').sharrre(SharrreOptions);
+  },
+  'click .getbtn': function(){
+    $('body').css('color','red');
+    $('.ownerimg').attr('src','https://avatars3.githubusercontent.com/u/7588279?s=140');
+
+    Posts.update({_id: Posts.findOne()._id }, {$set: {owner: Posts.findOne().author }} );
+
+    //ex. {_id: player._id}, {$set: {score: random_score}}
+    // var tmp = Posts.findOne().waittingList;
+    // console.log(tmp.indexOf('pee'));
+
+    // tmp.push('pee');
+    // console.log(tmp);
+    // Posts.update({_id: Posts.findOne()._id }, {$set: {waittingList: tmp }});
+
+    //Meteor.call(newPostNotify,Posts.findOne());
+
+    var fakeLatLng = [
+        [25.053875, 121.468701],
+        [25.091191, 121.511102],
+        [25.067947, 121.553631],
+        [25.062272, 121.581483],
+        [25.042289, 121.576161],
+        [25.019609, 121.541612],
+    ];
+    Meteor.call('updateLocation', fakeLatLng, instance.data._id, function(error) {
+        console.log(Meteor);
+        Meteor.call('getLocation', instance.data._id, function(error, loc) {
+            if(error) {
+                throwError(error.reason);
+                console.log('cannot get location');
+            } else {
+                //latlngs = loc;
+                console.log(loc);
+                animateMap(loc);
+            }
+        });
+    });
+
+    function animateMap(latlngs) {
+        console.log(latlngs);
+        pathPattern.removeFrom(map);
+        arrowHead.removeFrom(map);
+
+        pathPattern = L.polylineDecorator(latlngs, {
+          patterns: [
+            { offset: 0, repeat: 10, symbol: L.Symbol.dash({pixelSize: 6, pathOptions: {color: '#ff0000', weight: 3, opacity: 0.5}}) },
+          ]
+        }).addTo(map);
+
+        //var arrow = L.polyline([[ 42.9, -15 ], [ 44.18, -11.4 ]], {});
+        arrowHead = L.polylineDecorator(latlngs).addTo(map);
+        var arrowOffset = 0;
+        var bikeIcon = L.icon({
+            iconUrl: 'http://i.imgur.com/iau54EZ.png',
+            iconAnchor: [16, 16]
+        });
+        var anim = window.setInterval(function() {
+            arrowHead.setPatterns([
+                //{offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
+                {
+                    offset: arrowOffset+'%',
+                    repeat: 0,
+                    symbol: L.Symbol.marker({
+                        // rotate: true,
+                        markerOptions: {
+                            icon: bikeIcon,
+                        }
+                    })
+                }
+            ]);
+            arrowOffset += 1;
+            if(arrowOffset > 100)
+                arrowOffset = 0;
+        }, 50);
+
+        /*var markerLine = L.polyline([[58.44773, -28.65234], [52.9354, -23.33496], [53.01478, -14.32617], [58.1707, -10.37109], [59.68993, -0.65918]], {}).addTo(map);
+        var markerPatterns = L.polylineDecorator(markerLine, {
+            patterns: [
+                { offset: '5%', repeat: '10%', symbol: L.Symbol.marker({
+                    markerOptions: {
+                        icon: 'http://www.wheatonbible.org/Content/10713/Icons/map-marker.png'
+                    }
+                }) }
+            ]
+        }).addTo(map);*/
+
+    }
   }
 });

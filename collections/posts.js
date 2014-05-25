@@ -155,6 +155,7 @@ Meteor.methods({
 
   getLocation: function(postId) {
     var post = Posts.findOne({_id: postId});
+    // console.log('got post')
     return post.location;
   }
 });
