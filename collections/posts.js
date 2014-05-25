@@ -37,13 +37,13 @@ Meteor.methods({
         maxPostsPer24Hours = Math.abs(parseInt(getSetting('maxPostsPerDay', 30))),
         postId = '',
         waittingList=['juju','poopoo'],
-        location='NTU_test',//I added
         owner='Mr.juju_tester';
+        location = post.location,
 
     // only let admins post as another user
     if(isAdmin(Meteor.user()))
-      userId = post.userId || user._id; 
-        
+      userId = post.userId || user._id;
+
     // check that user can post
     if (!user || !canPost(user))
       throw new Meteor.Error(601, i18n.t('You need to login or be invited to post new stories.'));
@@ -81,9 +81,8 @@ Meteor.methods({
       inactive: false,
       status: status,
       waittingList: waittingList,
-      location: location, // I added
       owner: owner
-
+      location: location
     });
 
     if(status == STATUS_APPROVED){
@@ -144,8 +143,18 @@ Meteor.methods({
     // decrement post count
     var post = Posts.findOne({_id: postId});
     if(!Meteor.userId() || !canEditById(Meteor.userId(), post)) throw new Meteor.Error(606, 'You need permission to edit or delete a post');
-    
+
     Meteor.users.update({_id: post.userId}, {$inc: {postCount: -1}});
     Posts.remove(postId);
+  },
+
+  updateLocation: function(newLatLng, postId) {
+    console.log(newLatLng);
+    Posts.update(postId, { $set: {location: newLatLng}});
+  },
+
+  getLocation: function(postId) {
+    var post = Posts.findOne({_id: postId});
+    return post.location;
   }
 });

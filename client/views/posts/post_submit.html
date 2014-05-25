@@ -11,7 +11,10 @@
       </div>
       <div class="control-group">
         <label class="control-label">{{i18n "Location"}}</label>
-        <div class="controls"><input id="location" type="text" value="" /></div>
+        <div class="controls">
+            <button id="loc-btn">{{i18n "Get my Location!"}}</button>
+            <!-- <input id="location" type="text" value="" /> -->
+        </div>
       </div>
       <div class="control-group">
         <label class="control-label">{{i18n "Body"}}</label>
@@ -60,7 +63,7 @@
             <label class="radio inline">
               <input id="status_approved" type="radio" value="2" name="status" checked /> {{i18n "Approved"}}
             </label>
-            <label class="radio inline">  
+            <label class="radio inline">
               <input id="status_rejected" type="radio" value="3" name="status"/> {{i18n "Rejected"}}
             </label>
           </div>

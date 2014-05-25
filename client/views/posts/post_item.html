@@ -2,7 +2,7 @@
   {{# with post}}
   <div class="post post-{{rank}} {{#if sticky}}sticky{{/if}} {{inactiveClass}}" id="{{_id}}">
     <!---->
-    
+
 
     <ul class="post-actions"  >
       <li><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a></li>
@@ -34,10 +34,10 @@
         {{#if sticky}}
           <span class="post-sticky"><i class="icon-pin"></i><span>{{i18n "Sticky"}}</span></span>
         {{/if}}
+
         <h3 class="post-heading">
-          
-          
             <img class='headImg' float='left' src="{{url}}" width='100px' height='100px' >
+            
           <!--was{{postLink}}-->
           <div class='info post-message '>
         
@@ -55,11 +55,25 @@
         <br><p>{{location}}{{owner}}{{why}} </p><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
         <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
           {{#if url}}<span class="post-domain">{{domain}}</span>{{/if}}
+            <p class="post-title" id="location-trigger">Show location</p>
+
+            <div class="post-location">
+                <!-- <p>this is location div</p> -->
+                {{#constant}}
+                    <div id="map"></div>
+                {{/constant}}
+            </div>
+
+            <a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
+            <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
+            {{#if url}}
+                <span class="post-domain">{{domain}}</span>
+            {{/if}}
             {{#each categories}}
-              <a href="{{categoryLink}}" class="post-category category-{{slug}}">{{name}}</a>
+                <a href="{{categoryLink}}" class="post-category category-{{slug}}">{{name}}</a>
             {{/each}}
-            
         </h3>
+
         <p class="post-meta"><span class="points">{{votes}} <span class="unit">{{pointsUnitDisplayText}} </span></span>by  <a class="post-author" href="{{profileUrl}}">{{authorName}}</a> <span class="post-time">{{ago}}</span><span class="comments">, <a class="go-to-comments" href="/posts/{{_id}}">{{comments}} {{commentsDisplayText}}</a></span>
           {{#if can_edit}}
             | <a href="/posts/{{_id}}/edit" class="edit-link goto-edit">Edit</a>
@@ -72,9 +86,7 @@
     </div>
     {{#if body}}
       <div class="post-message markdown">{{{body_formatted}}}
-        
       </div>
-
     {{/if}}
   </div>
   {{/with}}

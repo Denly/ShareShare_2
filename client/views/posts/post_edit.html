@@ -21,6 +21,12 @@
         </div>
         {{/if}}
         <div class="control-group">
+          <label class="control-label">{{i18n "Location"}}</label>
+          <div class="controls">
+            <button id="loc-btn">{{i18n "Update Location!"}}</button>
+          </div>
+        </div>
+        <div class="control-group">
           <label class="control-label post-form-body">{{i18n "Body"}}</label>
           <div class="controls" id="editor"><textarea id="body" value="" class="input-xlarge">{{body}}</textarea></div>
         </div>
@@ -64,7 +70,7 @@
             <label class="control-label post-form-timestamp">{{i18n "Submission"}}</label>
             <div class="controls">
               <p>{{i18n "Note: this post is still pending so it has no submission timestamp yet."}}</p>
-            </div>  
+            </div>
           </div>
           {{/if}}
           <div class="control-group post-form-user">
@@ -86,7 +92,7 @@
               <label class="radio inline">
                 <input id="status_approved" type="radio" value="2" name="status" {{hasStatusApproved}} /> {{i18n "Approved"}}
               </label>
-              <label class="radio inline">  
+              <label class="radio inline">
                 <input id="status_rejected" type="radio" value="3" name="status" {{hasStatusRejected}} /> {{i18n "Rejected"}}
               </label>
             </div>

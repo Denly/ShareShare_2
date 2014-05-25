@@ -25,6 +25,10 @@ Template.post_submit.rendered = function(){
     $('#submitted_hidden').val(moment(ev.date).valueOf());
   });
 
+  $('#loc-btn').css({
+    'float': 'left',
+  });
+
   // $("#postUser").selectToAutocomplete(); // XXX
 
 }
@@ -43,12 +47,18 @@ Template.post_submit.events({
     var title= $('#title').val();
     var url = $('#url').val();
     var shortUrl = $('#short-url').val();
+    var location = $('#cur-latlng').html();
     var body = instance.editor.exportFile();
     var categories=[];
     var sticky=!!$('#sticky').attr('checked');
     var submitted = $('#submitted_hidden').val();
     var userId = $('#postUser').val();
     var status = parseInt($('input[name=status]:checked').val());
+
+    var latlng = location.split(',');
+    for (var i = 0; i < latlng.length; i++) {
+        latlng[i] = parseFloat(latlng[i]);
+    };
 
     $('input[name=category]:checked').each(function() {
       categories.push(Categories.findOne($(this).val()));
@@ -59,6 +69,7 @@ Template.post_submit.events({
       , body: body
       , shortUrl: shortUrl
       , categories: categories
+      , location: [latlng]
       , sticky: sticky
       , submitted: submitted
       , userId: userId
@@ -101,6 +112,19 @@ Template.post_submit.events({
       alert("Please fill in an URL first!");
       $(".get-title-link").removeClass("loading");
     }
+  },
+  'click #loc-btn': function(e) {
+    e.preventDefault();
+    //console.log(e);
+    //var loadingImg = $(e.target).after('<img src="img/loading.gif" style="margin: 4px 8px">');
+    var loadingImg = $('<img src="img/loading.gif" style="margin: 1px 8px">').insertAfter(e.target);
+    var location = navigator.geolocation.getCurrentPosition(GetLocation);
+    function GetLocation(location) {
+        //console.log(location.coords);
+        var lat = location.coords.latitude.toFixed(3);
+        var lng = location.coords.longitude.toFixed(3);
+        //console.log(loadingImg.attr('src'));
+        loadingImg.attr('src', 'img/ok.png')
+            .after($('<span id="cur-latlng">' + lat + ', ' + lng + '</span>'));    }
   }
-
 });
