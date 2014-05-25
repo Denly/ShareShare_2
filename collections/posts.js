@@ -36,7 +36,7 @@ Meteor.methods({
         postInterval = Math.abs(parseInt(getSetting('postInterval', 30))),
         maxPostsPer24Hours = Math.abs(parseInt(getSetting('maxPostsPerDay', 30))),
         postId = '',
-        location = 'NTU_test',
+        location = post.location,
         owner='juju_test';
 
     // only let admins post as another user
@@ -143,5 +143,15 @@ Meteor.methods({
 
     Meteor.users.update({_id: post.userId}, {$inc: {postCount: -1}});
     Posts.remove(postId);
+  },
+
+  updateLocation: function(newLatLng, postId) {
+    console.log(newLatLng);
+    Posts.update(postId, { $set: {location: newLatLng}});
+  },
+
+  getLocation: function(postId) {
+    var post = Posts.findOne({_id: postId});
+    return post.location;
   }
 });

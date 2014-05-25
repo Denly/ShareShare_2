@@ -112,18 +112,104 @@ Template.post_item.rendered = function(){
   var $map = $('#map').css({
     width: '100%',
     height: '300px',
-    display: 'none'
+    //display: 'none'
   });
   var map = new L.map('map');
-  map.setView([23.5, 120], 7);
+  map.setView([25.069036, 121.532731], 12);
   L.Icon.Default.imagePath = 'packages/leaflet/images';
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
     }).addTo(map);
+  //L.tileLayer.provider('Stamen.Watercolor').addTo(map);
   $('#location-trigger').on('click', function() {
     $map.slideToggle();
   });
 
+  var fakeLatLng = [
+    [25.053875, 121.468701],
+    [25.091191, 121.511102],
+    [25.067947, 121.553631],
+    [25.062272, 121.581483],
+    [25.042289, 121.576161],
+  ];
+  Meteor.call('updateLocation', fakeLatLng, this.data._id);
+  // , function(error, result) {
+  //   if(error) {
+  //       throwError(error.reason);
+  //       console.log('cannot get location');
+  //   } else {
+  //       //latlngs = loc;
+  //       animateMap(loc);
+  //   }
+  // });
+
+  //var latlngs = [];
+  Meteor.call('getLocation', this.data._id, function(error, loc) {
+    if(error) {
+        throwError(error.reason);
+        console.log('cannot get location');
+    } else {
+        //latlngs = loc;
+        animateMap(loc);
+    }
+  });
+
+  function animateMap(latlngs) {
+    console.log(latlngs)
+    var pathPattern = L.polylineDecorator(latlngs, {
+      patterns: [
+        { offset: 0, repeat: 10, symbol: L.Symbol.dash({pixelSize: 6, pathOptions: {color: '#ff0000', weight: 3, opacity: 0.5}}) },
+      ]
+    }).addTo(map);
+
+    //var arrow = L.polyline([[ 42.9, -15 ], [ 44.18, -11.4 ]], {});
+    var arrowHead = L.polylineDecorator(latlngs).addTo(map);
+    var arrowOffset = 0;
+    var planeIcon = L.icon({
+        iconUrl: 'http://i.imgur.com/iau54EZ.png',
+        iconAnchor: [16, 16]
+    });
+    var anim = window.setInterval(function() {
+        arrowHead.setPatterns([
+            //{offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
+            {
+                offset: arrowOffset+'%',
+                repeat: 0,
+                symbol: L.Symbol.marker({
+                    // rotate: true,
+                    markerOptions: {
+                        icon: planeIcon,
+                    }
+                })
+            }
+        ]);
+        arrowOffset += 1;
+        if(arrowOffset > 100)
+            arrowOffset = 0;
+    }, 50);
+  }
+
+/*
+  var myIcon = L.icon({
+    iconUrl: 'http://i.imgur.com/iau54EZ.png'
+  });
+
+  var line = L.polyline([[23.68510, 120.94136],[23.5, 120]]);
+  console.log(line.getLatLngs());
+  var animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        icon: myIcon,
+        // distance: 300,  // meters
+        // interval: 2000, // milliseconds
+        autoStart: false,
+      });
+
+  map.addLayer(animatedMarker);
+  console.log(animatedMarker);
+*/
+  /*var polyline = L.polyline([[23.5, 120], [23, 120]], {color: 'red'}).addTo(map);*/
+
+    // zoom the map to the polyline
+    // map.fitBounds(polyline.getBounds());
 };
 
 Template.post_item.events({

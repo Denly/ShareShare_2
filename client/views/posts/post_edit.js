@@ -62,6 +62,10 @@ Template.post_edit.rendered = function(){
 
   }
 
+  $('#loc-btn').css({
+    'float': 'left',
+  });
+
   // $("#postUser").selectToAutocomplete(); // XXX
 
 }
@@ -72,7 +76,15 @@ Template.post_edit.events({
     var categories = [];
     var url = $('#url').val();
     var shortUrl = $('#short-url').val();
+    var location = $('#cur-latlng').html();
     var status = parseInt($('input[name=status]:checked').val());
+
+    var latlng = location.split(',');
+    for (var i = 0; i < latlng.length; i++) {
+        latlng[i] = parseFloat(latlng[i]);
+    };
+    // this latlng should add to existing latlng array in DB
+    // not implemented yet
 
     e.preventDefault();
     if(!Meteor.user()){
@@ -91,6 +103,7 @@ Template.post_edit.events({
       shortUrl:         shortUrl,
       body:             instance.editor.exportFile(),
       categories:       categories,
+      location:         latlng,
     };
 
     if(url){
@@ -130,7 +143,7 @@ Template.post_edit.events({
     var post = this;
 
     e.preventDefault();
-    
+
     if(confirm("Are you sure?")){
       Router.go("/");
       Meteor.call("deletePostById", post._id, function(error) {
@@ -141,6 +154,19 @@ Template.post_edit.events({
           throwError('Your post has been deleted.');
         }
       });
+    }
+  },
+  'click #loc-btn': function(e) {
+    e.preventDefault();
+    var loadingImg = $('<img src="img/loading.gif" style="margin: 1px 8px">').insertAfter(e.target);
+    var location = navigator.geolocation.getCurrentPosition(GetLocation);
+    function GetLocation(location) {
+        //console.log(location.coords);
+      var lat = location.coords.latitude.toFixed(3);
+      var lng = location.coords.longitude.toFixed(3);
+        //console.log(loadingImg.attr('src'));
+      loadingImg.attr('src', 'img/ok.png')
+        .after($('<span id="cur-latlng">' + lat + ', ' + lng + '</span>'));
     }
   }
 });
