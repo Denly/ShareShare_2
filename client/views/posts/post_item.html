@@ -42,14 +42,17 @@
           <div class='info post-message '>
         
         <div class='giver-owner'>
-          <div class='giver'><p>Giver: </p><img class='owner' src="http://graph.facebook.com/849105618437484/picture"></div>
-          <div class='owner'><p>Owner: </p><img class='owner' src="http://graph.facebook.com/849105618437484/picture"></div>
+          <div class='giver'><p>Giver: </p><img class='giverimg' src="http://graph.facebook.com/849105618437484/picture"></div>
+          <div class='owner'><p>Owner: {{owner}} </p><img class='ownerimg' src="http://graph.facebook.com/849105618437484/picture"></div>
         </div>
+        <div class='get' >
+          <p>Waitting List: {{waittingList}} </p>
+        <input type='button' class='getbtn' value='To get!' > </div>
         <div class='shareCode'>
         <img class='shareCode' src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=http://localhost:3000/posts/{{_id}}"><p>ShareShare-QRCode</p>
         </div>
         </div>
-        <br><p>{{location}}</p><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
+        <br><p>{{location}}{{owner}}{{why}} </p><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
         <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
           {{#if url}}<span class="post-domain">{{domain}}</span>{{/if}}
             {{#each categories}}

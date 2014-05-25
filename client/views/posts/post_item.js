@@ -1,3 +1,27 @@
+Template.post_item.events({
+  'click .getbtn': function(){
+    $('body').css('color','red');
+    $('.ownerimg').attr('src','https://avatars3.githubusercontent.com/u/7588279?s=140');
+    
+    Posts.update({_id: Posts.findOne()._id }, {$set: {owner: Posts.findOne().author }} );
+    
+    //ex. {_id: player._id}, {$set: {score: random_score}}
+    var tmp = Posts.findOne().waittingList;
+    console.log(tmp.indexOf('pee'));
+    if(tmp.indexOf('pee') !=== -1){
+    tmp.push('pee');
+    console.log(tmp);
+    Posts.update({_id: Posts.findOne()._id }, {$set: {waittingList: tmp }});
+
+    }else{
+      console.log('You are already in the waitting List !!!');
+    }
+
+    Meteor.call(newPostNotify,Posts.findOne());
+  }
+});
+
+
 Template.post_item.created = function () {
   instance = this;
 };
