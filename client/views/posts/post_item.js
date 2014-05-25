@@ -8,14 +8,12 @@ Template.post_item.events({
     //ex. {_id: player._id}, {$set: {score: random_score}}
     var tmp = Posts.findOne().waittingList;
     console.log(tmp.indexOf('pee'));
-    if(tmp.indexOf('pee') !=== -1){
+    
     tmp.push('pee');
     console.log(tmp);
     Posts.update({_id: Posts.findOne()._id }, {$set: {waittingList: tmp }});
 
-    }else{
-      console.log('You are already in the waitting List !!!');
-    }
+    
 
     Meteor.call(newPostNotify,Posts.findOne());
   }
@@ -132,7 +130,6 @@ Template.post_item.rendered = function(){
   // // if this is *not* the first render, recalculate positions
   // if(instance.pArray.length>1)
   //   recalculatePosition($instance, instance.pArray);
-  console.log(L.tileLayer);
   var $map = $('#map').css({
     width: '100%',
     height: '300px',
