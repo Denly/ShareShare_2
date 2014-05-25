@@ -1,3 +1,25 @@
+Template.post_item.events({
+  'click .getbtn': function(){
+    $('body').css('color','red');
+    $('.ownerimg').attr('src','https://avatars3.githubusercontent.com/u/7588279?s=140');
+    
+    Posts.update({_id: Posts.findOne()._id }, {$set: {owner: Posts.findOne().author }} );
+    
+    //ex. {_id: player._id}, {$set: {score: random_score}}
+    var tmp = Posts.findOne().waittingList;
+    console.log(tmp.indexOf('pee'));
+    
+    tmp.push('pee');
+    console.log(tmp);
+    Posts.update({_id: Posts.findOne()._id }, {$set: {waittingList: tmp }});
+
+    
+
+    Meteor.call(newPostNotify,Posts.findOne());
+  }
+});
+
+
 Template.post_item.created = function () {
   instance = this;
   var fakeLatLng = [
@@ -116,7 +138,6 @@ Template.post_item.rendered = function(){
   // // if this is *not* the first render, recalculate positions
   // if(instance.pArray.length>1)
   //   recalculatePosition($instance, instance.pArray);
-  console.log(L.tileLayer);
   var $map = $('#map').css({
     width: '100%',
     height: '300px',

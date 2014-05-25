@@ -22,3 +22,7 @@ sendEmail = function(to, subject, text, html){
     html: html
   });
 };
+//I added
+Meteor.methods({
+  MySendEmail:sendEmail
+});

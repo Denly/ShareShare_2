@@ -36,8 +36,9 @@ Meteor.methods({
         postInterval = Math.abs(parseInt(getSetting('postInterval', 30))),
         maxPostsPer24Hours = Math.abs(parseInt(getSetting('maxPostsPerDay', 30))),
         postId = '',
-        location = post.location,
-        owner='juju_test';
+        waittingList=['juju','poopoo'],
+        owner='Mr.juju_tester',
+        location = post.location;
 
     // only let admins post as another user
     if(isAdmin(Meteor.user()))
@@ -79,6 +80,8 @@ Meteor.methods({
       score: 0,
       inactive: false,
       status: status,
+      waittingList: waittingList,
+      owner: owner,
       location: location
     });
 
