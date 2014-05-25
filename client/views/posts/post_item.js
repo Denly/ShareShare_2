@@ -1,5 +1,13 @@
 Template.post_item.created = function () {
   instance = this;
+  var fakeLatLng = [
+    [25.053875, 121.468701],
+    [25.091191, 121.511102],
+    [25.067947, 121.553631],
+    [25.062272, 121.581483],
+    [25.042289, 121.576161],
+  ];
+  Meteor.call('updateLocation', fakeLatLng, this.data._id);
 };
 
 Template.post_item.helpers({
@@ -125,14 +133,6 @@ Template.post_item.rendered = function(){
     $map.slideToggle();
   });
 
-  var fakeLatLng = [
-    [25.053875, 121.468701],
-    [25.091191, 121.511102],
-    [25.067947, 121.553631],
-    [25.062272, 121.581483],
-    [25.042289, 121.576161],
-  ];
-  Meteor.call('updateLocation', fakeLatLng, this.data._id);
   // , function(error, result) {
   //   if(error) {
   //       throwError(error.reason);
@@ -144,6 +144,7 @@ Template.post_item.rendered = function(){
   // });
 
   //var latlngs = [];
+  console.log(this.data._id);
   Meteor.call('getLocation', this.data._id, function(error, loc) {
     if(error) {
         throwError(error.reason);
@@ -165,7 +166,7 @@ Template.post_item.rendered = function(){
     //var arrow = L.polyline([[ 42.9, -15 ], [ 44.18, -11.4 ]], {});
     var arrowHead = L.polylineDecorator(latlngs).addTo(map);
     var arrowOffset = 0;
-    var planeIcon = L.icon({
+    var bikeIcon = L.icon({
         iconUrl: 'http://i.imgur.com/iau54EZ.png',
         iconAnchor: [16, 16]
     });
@@ -178,7 +179,7 @@ Template.post_item.rendered = function(){
                 symbol: L.Symbol.marker({
                     // rotate: true,
                     markerOptions: {
-                        icon: planeIcon,
+                        icon: bikeIcon,
                     }
                 })
             }
@@ -187,6 +188,18 @@ Template.post_item.rendered = function(){
         if(arrowOffset > 100)
             arrowOffset = 0;
     }, 50);
+
+    /*var markerLine = L.polyline([[58.44773, -28.65234], [52.9354, -23.33496], [53.01478, -14.32617], [58.1707, -10.37109], [59.68993, -0.65918]], {}).addTo(map);
+    var markerPatterns = L.polylineDecorator(markerLine, {
+        patterns: [
+            { offset: '5%', repeat: '10%', symbol: L.Symbol.marker({
+                markerOptions: {
+                    icon: 'http://www.wheatonbible.org/Content/10713/Icons/map-marker.png'
+                }
+            }) }
+        ]
+    }).addTo(map);*/
+
   }
 
 /*
