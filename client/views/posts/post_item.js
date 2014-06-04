@@ -84,7 +84,7 @@
   }
 });*/
 var map, arrowHead, pathPattern;
-
+/*
 Template.post_item.created = function () {
   instance = this;
   var fakeLatLng = [
@@ -95,13 +95,18 @@ Template.post_item.created = function () {
     [25.042289, 121.576161],
   ];
   Meteor.call('updateLocation', fakeLatLng, this.data._id);
-};
+};*/
 
 Template.post_item.helpers({
   post: function(){
     // note: when the data context is set by the router, it will be "this.post". When set by a parent template it'll be "this"
+    //????
     return this.post || this;
   },
+  //ownername:function(){
+   // console.log(Posts.ownerUser.username);
+    //return Posts.ownerUser.username;
+  //},
   postLink: function(){
     return !!this.url ? getOutgoingUrl(this.url) : "/posts/"+this._id;
   },
@@ -208,8 +213,14 @@ Template.post_item.rendered = function(){
     height: '300px',
     //display: 'none'
   });
-  map = new L.map('map');
-  map.setView([25.069036, 121.532731], 12);
+  /*
+  var a=[];
+  a[0]=Posts.findOne().location[1];
+  var b=[25,122];
+  var c=this.location;
+  console.log(' a= '+a+' b= '+b+' c= '+c);*/
+  map = new L.map('map');//Library??
+  map.setView(String(Posts.findOne().location).split(','), 12);// set map
   L.Icon.Default.imagePath = 'packages/leaflet/images';
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -231,6 +242,7 @@ Template.post_item.rendered = function(){
 
   //var latlngs = [];
   console.log(this.data._id);
+  /*
   Meteor.call('getLocation', this.data._id, function(error, loc) {
     if(error) {
         throwError(error.reason);
@@ -239,8 +251,8 @@ Template.post_item.rendered = function(){
         //latlngs = loc;
         animateMap(loc);
     }
-  });
-
+  });*/
+/*
   function animateMap(latlngs) {
     console.log(latlngs);
     pathPattern = L.polylineDecorator(latlngs, {
@@ -285,10 +297,10 @@ Template.post_item.rendered = function(){
                 }
             }) }
         ]
-    }).addTo(map);*/
+    }).addTo(map);
 
   }
-
+*/
 /*
   var myIcon = L.icon({
     iconUrl: 'http://i.imgur.com/iau54EZ.png'
@@ -334,11 +346,12 @@ Template.post_item.events({
     $share.toggleClass("hidden");
     $share.find('.share-replace').sharrre(SharrreOptions);
   },
-  'click .getbtn': function(){
-    $('body').css('color','red');
-    $('.ownerimg').attr('src','https://avatars3.githubusercontent.com/u/7588279?s=140');
 
-    Posts.update({_id: Posts.findOne()._id }, {$set: {owner: Posts.findOne().author }} );
+ /* 'click .getbtn': function(){
+    $('body').css('color','red');
+    //$('.ownerimg').attr('src','https://avatars3.githubusercontent.com/u/7588279?s=140');
+
+    //Posts.update({_id: Posts.findOne()._id }, {$set: {owner: Posts.findOne().author }} );
 
     //ex. {_id: player._id}, {$set: {score: random_score}}
     // var tmp = Posts.findOne().waittingList;
@@ -418,8 +431,8 @@ Template.post_item.events({
                     }
                 }) }
             ]
-        }).addTo(map);*/
+        }).addTo(map);
 
     }
-  }
+  }*/
 });

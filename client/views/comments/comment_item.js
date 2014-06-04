@@ -4,6 +4,12 @@
 //   // console.log("------------\n body: "+comment.body+" \n comment submission date: "+d+" \n  requestTimestamp: "+new Date(Session.get('requestTimestamp'))+" \n now: "+new Date()+"\nisNew: "+commentIsNew);
 //   return commentIsNew;
 // };
+var btnId;
+reply_click = function(clicked_id) //No var!!! when def a function
+{
+    btnId=clicked_id;
+    console.log('btnId = '+btnId);
+}
 
 findQueueContainer=function($comment){
   // go up and down the DOM until we find either A) a queue container or B) an unqueued comment
@@ -156,6 +162,15 @@ Template.comment_item.helpers({
 });
 
 Template.comment_item.events({
+  'click .isowner': function(){
+    if(Meteor.user().username!==Posts.findOne().owner)
+      alert('Only Owner can Choose');
+    console.log('owner changred');
+    Posts.update({_id: Posts.findOne()._id }, {$set: {owner: btnId }} );
+    console.log('Posts.findOne()._id = '+Posts.findOne()._id);
+    console.log('owner = '+ Posts.findOne().owner);
+  },
+
   'click .queue-comment': function(e){
     e.preventDefault();
     var current_comment_id=$(event.target).closest(".comment").attr("id");

@@ -1,5 +1,19 @@
+My Note: 
+posts.js insert colllection
+Becareful search and code to the .meteor/local build, it will useless
+
+nav: head img
+img sre use /img/xx.png is absolute path!
+
 Telescope is an open-source, real-time social news site built with [Meteor](http://meteor.com)
 
+ToDo:
+owner notification,
+aws,
+secretM,
+location,
+
+==========================================================================================
 **Note:** Telescope is beta software. Most of it should work but it's still a little unpolished and you'll probably find some bugs. Use at your own risk :)
 
 # Learn More

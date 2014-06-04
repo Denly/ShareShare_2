@@ -6,11 +6,15 @@
 
     <ul class="post-actions"  >
       <!--<li><a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a></li>-->
-      <li class="post-share desktop"><a href="#" class="share-link"><i class="icon-share"></i><span class="action">{{i18n 'Share'}}</span></a>
+      <li class="post-share desktop"><!--<a href="#" class="share-link">-->
+      <a href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL" target="_blank"><img src="/img/fbshare.png" height="20px"><span class="action">{{i18n 'Share'}}</span></a>
+
+      <!--<i class="icon-share">
+      </i><span class="action">{{i18n 'Share'}}</span></a>
         <div class="share-options hidden">
           <div data-url="{{#if url}}{{outgoingUrl}}{{else}}{{current_domain}}/posts/{{_id}}{{/if}}" data-text="{{headline}}" class="share-replace">
           </div>
-        </div>
+        </div>-->
       </li>
       <li class="post-discuss">
         <a class="discuss-link go-to-comments" href="/posts/{{_id}}">
@@ -36,7 +40,7 @@
         {{/if}}
 
         <h3 class="post-heading">
-            <img class='headImg' float='left' src="{{url}}" width='330px' height='330px' >
+            <img class='headImg' float='left' src="{{url}}"  >
 
           <!--was{{postLink}}-->
           <div class='info post-message '>
@@ -44,38 +48,38 @@
         <div class='giver-owner'>
           <!--<div class='giver' hidden><p>Giver: </p><img class='giverimg' src="http://graph.facebook.com/849105618437484/picture"></div>
           -->
-          <div class='owner'><p>Owner: {{owner}} </p><img class='ownerimg' src="http://graph.facebook.com/849105618437484/picture"></div>
+          <div class='owner'><p>Owner: {{owner}}, {{ownerUser}}</p><img class='ownerimg' src="{{userAvatar}}"></div>
         </div>
-        <div class='get' >
-          <!--<p>Waitting List: {{waittingList}} </p>-->
-        <input type='button' class='getbtn button' value='Get One X-bike !!!!' > </div>
+        <!--<div class='get' >
+         <p>Waitting List: {{waittingList}} </p>
+        <input type='button' class='getbtn button' value='Get One X-bike !!!!' > </div>-->
         <div class='shareCode'>
-        <img class='shareCode' height='100px' src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=http://sharesharex.meteor.com/posts/{{_id}}"><p>Get X-bike-QRCode</p>
+        <a href="https://chart.googleapis.com/chart?chs=350x350&amp;cht=qr&amp;chl=http://sharesharex.meteor.com/posts/{{_id}}" target="_blank"><img class='shareCode' height='100px' src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=http://sharesharex.meteor.com/posts/{{_id}}">
+        Print QRCode</a>
         </div>
         </div>
-        <br><p>{{owner}}</p><!--<a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>-->
+        <br>
         <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
-          {{#if url}}<span class="post-domain">{{domain}}</span>{{/if}}
+         <!-- {{#if url}}<span class="post-domain">{{domain}}</span>{{/if}}-->
 
-            <p class="post-title" id="location-trigger">Show location</p>
+            <p class="post-title" id="location-trigger" style="font-size:10px;">Show location</p>
             <div class="post-location">
                 <!-- <p>this is location div</p> -->
                 {{#constant}}
-                    <div id="map"></div>
+                    <div id="map" hidden></div>
                 {{/constant}}
             </div>
 
-            <a target=”_blank” href="http://www.facebook.com/sharer/sharer.php?u=YOUR-URL">Share on Facebook</a>
-            <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a>
-            {{#if url}}
+           <!-- <a href="/posts/{{_id}}" class="post-title" target="{{postTarget}}">{{headline}}</a> -->
+           <!-- {{#if url}}
                 <span class="post-domain">{{domain}}</span>
-            {{/if}}
+            {{/if}} -->
             {{#each categories}}
                 <a href="{{categoryLink}}" class="post-category category-{{slug}}">{{name}}</a>
             {{/each}}
         </h3>
 
-        <p class="post-meta"><span class="points">{{votes}} <span class="unit">{{pointsUnitDisplayText}} </span></span>by  <a class="post-author" href="{{profileUrl}}">{{authorName}}</a> <span class="post-time">{{ago}}</span><span class="comments">, <a class="go-to-comments" href="/posts/{{_id}}">{{comments}} {{commentsDisplayText}}</a></span>
+        <p class="post-meta"><span class="points">{{votes}} <span class="unit">{{pointsUnitDisplayText}} </span></span><p>owner: <a class="post-author" href="">{{owner}}</a></p>by  <a class="post-author" href="{{profileUrl}}">{{authorName}}</a> <span class="post-time">{{ago}}</span><span class="comments">, <a class="go-to-comments" href="/posts/{{_id}}">{{comments}} {{commentsDisplayText}}</a></span>
           {{#if can_edit}}
             | <a href="/posts/{{_id}}/edit" class="edit-link goto-edit">Edit</a>
           {{/if}}

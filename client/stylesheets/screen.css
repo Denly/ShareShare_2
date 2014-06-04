@@ -669,10 +669,10 @@ body.pageslide-open {
 
 /* line 10, ../sass/modules/_header.scss */
 .header {
-  background: #4e555d url("/img/bg-header.png") top center;
-  background-color: #4e555d;
+  /*background: #4e555d url("/img/bg-header.png") top center;*/
+  background-color: white;
   margin-bottom: 10px;
-  height: 70px;
+  height: 170px; /*底下高度*/
   position: relative;
   /* For modern browsers */
   /* For IE 6/7 (trigger hasLayout) */
@@ -699,13 +699,13 @@ body.pageslide-open {
     position: relative;
     z-index: 20; }
   /* line 25, ../sass/modules/_header.scss */
-  .header .logo {
-    position: absolute;
+  .header  {
+    position: relative;
     display: inline-block;
     text-align: center;
     top: 10px;
     left: 0px;
-    width: 100%;
+    /*width: 100%;*/
     color: white;
     font-size: 30px;
     z-index: 10; }
@@ -713,14 +713,17 @@ body.pageslide-open {
     .header .logo a, .header .logo a:visited {
       color: white; }
     /* line 38, ../sass/modules/_header.scss */
-    .header .logo.image {
+    .header .logo .image {
       position: absolute;
-      left: 50%; }
+      
+      height: 80px;
+      top: 0px;
+      left: 40%; } 
       /* line 41, ../sass/modules/_header.scss */
       .header .logo.image a {
         display: block;
         height: 100%;
-        width: 100%;
+        width: 250px;
         background: no-repeat center center;
         font: 0/0 a;
         text-shadow: none;
@@ -729,14 +732,19 @@ body.pageslide-open {
   .header .user-nav {
     float: right;
     margin-right: 10px;
-    position: relative;
+    position: absolute;
+    right: 10%;
+    top: 15px;
     z-index: 20; }
 
 /* line 74, ../sass/modules/_header.scss */
 .auth-buttons {
-  position: relative;
+  color: black;
+  position: absolute;
   z-index: 20;
   float: right;
+  right: 5px;
+  top: 5px;
   margin: 20px 10px 0 0; }
   /* line 79, ../sass/modules/_header.scss */
   .auth-buttons #login-buttons {
@@ -751,12 +759,13 @@ body.pageslide-open {
     /* line 91, ../sass/modules/_header.scss */
     .auth-buttons #login-buttons a {
       text-decoration: none;
-      color: #4a4444; }
+      color:rgb(229,121,221); /*#4a4444;*/ }
     /* line 95, ../sass/modules/_header.scss */
     .auth-buttons #login-buttons a.login-link-text {
-      color: #fff;
+      color:rgb(229,121,221);
       font-weight: normal;
       display: inline-block;
+      font-size: 20px;
       height: 26px; }
     /* line 101, ../sass/modules/_header.scss */
     .auth-buttons #login-buttons #login-buttons-password {
@@ -1937,7 +1946,7 @@ table {
 
   /* line 88, ../sass/partials/_mobile.scss */
   .header {
-    height: 50px;
+    height: 150px;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     -ms-border-radius: 0px;
@@ -2093,3 +2102,70 @@ table {
   height: 100px;
 }
 
+.headImg{
+  width:200px;
+  height: 200px;
+}
+
+#topbar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 50px;
+  z-index: 0;
+}
+.header {
+  color: red;
+}
+
+.dropdown{
+  color: red;
+}
+.Cblock{
+  position: absolute;
+  background-color: rgb(177,219,245);
+  height:35px; width:200px; z-index:3; 
+  top: 30px;
+}
+
+#logoimg {
+position: absolute;
+top:35px;
+left: 300px;
+}
+#gressimg{
+  position: absolute;
+  top: 122px;
+  left: 0px;
+  height: 50px;
+  z-index: 3;
+}
+#gressimg2{
+  position: absolute;
+  top: 122px;
+  left: 200px;
+  height: 50px;
+  z-index: 3;
+}
+#gressimg3{
+  position: absolute;
+  top: 122px;
+  left: 400px;
+  height: 50px;
+  z-index: 3;
+}
+#gressimg4{
+  position: absolute;
+  top: 122px;
+  left: 600px;
+  height: 50px;
+  z-index: 3;
+}
+#gressimg5{
+  position: absolute;
+  top: 122px;
+  left: 800px;
+  height: 50px;
+  z-index: 3;
+}

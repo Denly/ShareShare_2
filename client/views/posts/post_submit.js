@@ -36,7 +36,7 @@ Template.post_submit.rendered = function(){
 Template.post_submit.events({
   'click input[type=submit]': function(e, instance){
     e.preventDefault();
-
+    alert('Clicked submit');
     $(e.target).addClass('disabled');
 
     if(!Meteor.user()){
@@ -47,15 +47,16 @@ Template.post_submit.events({
     var title= $('#title').val();
     var url = $('#url').val();
     var shortUrl = $('#short-url').val();
-    var location = $('#cur-latlng').html();
+    var location = $('#cur-latlng').html();//Get Location from html
     var body = instance.editor.exportFile();
     var categories=[];
     var sticky=!!$('#sticky').attr('checked');
+    var secretM = !!$('#secretM_i').attr('checked');
     var submitted = $('#submitted_hidden').val();
     var userId = $('#postUser').val();
     var status = parseInt($('input[name=status]:checked').val());
-
-    var latlng = location.split(',');
+//I added, If no location, cant submit!!!!
+    var latlng = String(location).split(','); //cut to two pieces->array
     for (var i = 0; i < latlng.length; i++) {
         latlng[i] = parseFloat(latlng[i]);
     };
@@ -63,7 +64,7 @@ Template.post_submit.events({
     $('input[name=category]:checked').each(function() {
       categories.push(Categories.findOne($(this).val()));
      });
-
+    //alert('Clicked submit 2');
     var properties = {
         headline: title
       , body: body
@@ -71,29 +72,50 @@ Template.post_submit.events({
       , categories: categories
       , location: [latlng]
       , sticky: sticky
+      , secretM: secretM // I added
       , submitted: submitted
       , userId: userId
       , status: status
     };
+    //test
+    console.log("this is location: [latlng] -->" + properties.location);
+
     if(url){
       var cleanUrl = (url.substring(0, 7) == "http://" || url.substring(0, 8) == "https://") ? url : "http://"+url;
       properties.url = cleanUrl;
     }
+alert('Before Call; after ifurl');
 
-    Meteor.call('post', properties, function(error, post) {
+    Meteor.call('post', properties, function(error, postId) {//call post(properties) method in post.js
+/*****
+      alert('In Call Back');
+      console.log('xpostx postId ='+postId);
+      alert('I really in the Call Back');
+      //console.log('post ='+post.postId);
+      //alert('I really www in the Call Back');
+
       if(error){
         throwError(error.reason);
         clearSeenErrors();
         $(e.target).removeClass('disabled');
         if(error.error == 603)
           Router.go('/posts/'+error.details);
+      alert('In erro ');
+      //Router.go('/posts/'+'whyy');
+          console.log('wow Router.go('/posts/'+error.details);');
       }else{
         trackEvent("new post", {'postId': post.postId});
         if(post.status === STATUS_PENDING)
           throwError('Thanks, your post is awaiting approval.')
+        alert('No erro, go to '+post.postId);
         Router.go('/posts/'+post.postId);
+
+       // Router.go('/posts/'+'test');
+        console.log('wow Router.go('/posts/'+post.postId);');
       }
+  *****/
     });
+    alert('Out the Call');
   },
   'click .get-title-link': function(e){
     e.preventDefault();

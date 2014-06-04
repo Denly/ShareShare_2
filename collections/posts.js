@@ -5,16 +5,17 @@ STATUS_APPROVED=2;
 STATUS_REJECTED=3;
 
 Posts.deny({
+  /*
   update: function(userId, post, fieldNames) {
     if(isAdminById(userId))
       return false;
     // deny the update if it contains something other than the following fields
     return (_.without(fieldNames, 'headline', 'url', 'body', 'shortUrl', 'shortTitle', 'categories').length > 0);
-  }
+  }*/
 });
 
 Posts.allow({
-    insert: canPostById
+    insert: canPostById//why these function no parameter?? they get parameter from???
   , update: canEditById
   , remove: canEditById
 });
@@ -35,10 +36,12 @@ Meteor.methods({
         numberOfPostsInPast24Hours=numberOfItemsInPast24Hours(user, Posts),
         postInterval = Math.abs(parseInt(getSetting('postInterval', 30))),
         maxPostsPer24Hours = Math.abs(parseInt(getSetting('maxPostsPerDay', 30))),
-        postId = '',
+        postId = 'popojuju',
         waittingList=['juju','poopoo'],
-        owner='Mr.juju_tester',
-        location = post.location;
+        owner=Meteor.user().username,
+        ownerUser=Meteor.user();
+        location = post.location,
+        secretM = post.secretM;
 
     // only let admins post as another user
     if(isAdmin(Meteor.user()))
@@ -52,11 +55,12 @@ Meteor.methods({
     if(!post.headline)
       throw new Meteor.Error(602, i18n.t('Please fill in a headline'));
 
-    // check that there are no previous posts with the same link
+    // Watch Out!!!check that there are no previous posts with the same link
+    /*
     if(post.url && (typeof postWithSameLink !== 'undefined')){
       Meteor.call('upvotePost', postWithSameLink);
       throw new Meteor.Error(603, i18n.t('This link has already been posted', postWithSameLink._id));
-    }
+    }*/
 
     if(!isAdmin(Meteor.user())){
       // check that user waits more than X seconds between posts
@@ -68,7 +72,7 @@ Meteor.methods({
         throw new Meteor.Error(605, i18n.t('Sorry, you cannot submit more than ')+maxPostsPer24Hours+i18n.t(' posts per day'));
     }
 
-    post = _.extend(post, {
+    post = _.extend(post, {  //extend to helpers???
       headline: headline,
       body: body,
       userId: userId,
@@ -82,7 +86,9 @@ Meteor.methods({
       status: status,
       waittingList: waittingList,
       owner: owner,
-      location: location
+      ownerUser: ownerUser,
+      location: location,
+      secretM: secretM
     });
 
     if(status == STATUS_APPROVED){
@@ -90,7 +96,7 @@ Meteor.methods({
       post.submitted  = submitted;
     }
 
-    postId = Posts.insert(post);
+    postId = Posts.insert(post);//return ID!!
 
     // increment posts count
     Meteor.users.update({_id: userId}, {$inc: {postCount: 1}});
@@ -117,10 +123,12 @@ Meteor.methods({
         //run asynchronously
       });
     }
-
+    //alert(postId);
     // add the post's own ID to the post object and return it to the client
     post.postId = postId;
-    return post;
+    alert('End of "click input[type=submit], post.postId =" '+post.postId);
+    Router.go('/posts/'+postId);
+    return postId;
   },
   post_edit: function(post){
     // TODO: make post_edit server-side?
@@ -156,6 +164,6 @@ Meteor.methods({
   getLocation: function(postId) {
     var post = Posts.findOne({_id: postId});
     // console.log('got post')
-    return post.location;
+    //return post.location;
   }
 });
