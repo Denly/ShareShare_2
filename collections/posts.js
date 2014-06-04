@@ -126,7 +126,7 @@ Meteor.methods({
     //alert(postId);
     // add the post's own ID to the post object and return it to the client
     post.postId = postId;
-    alert('End of "click input[type=submit], post.postId =" '+post.postId);
+   // alert('End of "click input[type=submit], post.postId =" '+post.postId);
     Router.go('/posts/'+postId);
     return postId;
   },
@@ -157,12 +157,12 @@ Meteor.methods({
   },
 
   updateLocation: function(newLatLng, postId) {
-    console.log(newLatLng);
-    Posts.update(postId, { $set: {location: newLatLng}});
+    //console.log(newLatLng);
+    //Posts.update(posts, { $set: {location: newLatLng}});
   },
 
   getLocation: function(postId) {
-    var post = Posts.findOne({_id: postId});
+   // var post = Posts.findOne({_id: postId});
     // console.log('got post')
     //return post.location;
   }

@@ -5,6 +5,9 @@
 
     <ul class="nav site-nav desktop" >
       {{#if canView}}
+      <li>
+        <a href="/submit">PostNew!</a>
+      </li>
       <li class="dropdown"  >
         <a class="View" href="/">{{i18n "View"}}</a>
         <div class="dropdown-menu">
@@ -44,9 +47,9 @@
         </div>
       </li>
       {{/if}}
-      <li>
+      <!--<li>
         {{> search}}
-      </li>
+      </li>-->
     </ul>
 
     <h1 class="logo image"  width='250px' >
@@ -58,6 +61,7 @@
      <!-- <img id="topbar" src="./img/whit.png">-->
       <div class="topbar" style="background-color:white; height:150px; width:100%; z-index:1;"> </div>
       <div class="Cblock" > </div>
+      <div class="Pblock"><a href=""></a></div>
 <!--
     {{#if logo_url}}
       <h1 class="logo image" style="height:{{logo_height}}px; width:{{logo_width}}px; top:{{logo_top}}px; margin-left:{{logo_offset}}px;">
@@ -69,14 +73,16 @@
       <h1 class="logo"><a href="/">{{site_title}}</a></h1>
     {{/if}}
 -->
-    {{#if canView}}
+   <!-- {{#if canView}}
     <ul class="nav user-nav desktop">
+
       <li><a id="submit" class="submit button" href="/submit">{{i18n "Post"}}</a></li>
     </ul>
-    {{/if}}
+    {{/if}}-->
 
-    <div class="auth-buttons">
+    <div class="auth-buttons" id='loginBlock'>
       {{> loginButtons align="right" color='black'}}
+      {{> search color='blue'}}
     </div>
 
   </header>

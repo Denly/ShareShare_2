@@ -40,7 +40,7 @@
         {{/if}}
 
         <h3 class="post-heading">
-            <img class='headImg' float='left' src="{{url}}"  >
+            <img class='headImg' id='headImg' float='left' src="{{url}}"  >
 
           <!--was{{postLink}}-->
           <div class='info post-message '>
@@ -48,7 +48,7 @@
         <div class='giver-owner'>
           <!--<div class='giver' hidden><p>Giver: </p><img class='giverimg' src="http://graph.facebook.com/849105618437484/picture"></div>
           -->
-          <div class='owner'><p>Owner: {{owner}}, {{ownerUser}}</p><img class='ownerimg' src="{{userAvatar}}"></div>
+          <div class='owner'><p>Keeper: {{owner}}<!--, {{ownerUser}}--></p><img class='ownerimg' src="{{userAvatar}}"></div>
         </div>
         <!--<div class='get' >
          <p>Waitting List: {{waittingList}} </p>
@@ -79,7 +79,7 @@
             {{/each}}
         </h3>
 
-        <p class="post-meta"><span class="points">{{votes}} <span class="unit">{{pointsUnitDisplayText}} </span></span><p>owner: <a class="post-author" href="">{{owner}}</a></p>by  <a class="post-author" href="{{profileUrl}}">{{authorName}}</a> <span class="post-time">{{ago}}</span><span class="comments">, <a class="go-to-comments" href="/posts/{{_id}}">{{comments}} {{commentsDisplayText}}</a></span>
+        <p class="post-meta"><span class="points">{{votes}} <span class="unit">{{pointsUnitDisplayText}} </span></span><p>Keeper: <a class="post-author" href="">{{owner}}</a></p>by  <a class="post-author" href="{{profileUrl}}">{{authorName}}</a> <span class="post-time">{{ago}}</span><span class="comments">, <a class="go-to-comments" href="/posts/{{_id}}">{{comments}} {{commentsDisplayText}}</a></span>
           {{#if can_edit}}
             | <a href="/posts/{{_id}}/edit" class="edit-link goto-edit">Edit</a>
           {{/if}}

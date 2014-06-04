@@ -762,7 +762,7 @@ body.pageslide-open {
       color:rgb(229,121,221); /*#4a4444;*/ }
     /* line 95, ../sass/modules/_header.scss */
     .auth-buttons #login-buttons a.login-link-text {
-      color:rgb(229,121,221);
+      color:rgb(177,219,245);
       font-weight: normal;
       display: inline-block;
       font-size: 20px;
@@ -862,10 +862,10 @@ body.pageslide-open {
       outline: none; }
   /* line 175, ../sass/modules/_header.scss */
   .search.empty .search-field {
-    background: rgba(255, 255, 255, 0.1); }
+    background: rgb(177,219,245); }
     /* line 177, ../sass/modules/_header.scss */
     .search.empty .search-field:focus {
-      background: white; }
+      background: rgb(187,229,255); }
   /* line 181, ../sass/modules/_header.scss */
   .search.empty .search-clear {
     display: none; }
@@ -2084,7 +2084,11 @@ table {
 .info{
   
   display: inline-block;
-
+  width: 100px;
+  float: top;
+  float: center;
+  position: absolute;
+  right: 40px;
 }
 
 .info .shareCode{
@@ -2100,6 +2104,7 @@ table {
 .giver-owner img {
   border-radius: 50%;
   height: 100px;
+  margin-bottom: 30px;
 }
 
 .headImg{
@@ -2125,47 +2130,64 @@ table {
 .Cblock{
   position: absolute;
   background-color: rgb(177,219,245);
-  height:35px; width:200px; z-index:3; 
+  height:35px; width:180px; z-index:3; 
   top: 30px;
 }
+/*
+.Pblock{
+  position: absolute;
+  background-color: rgb(177,219,245);
+  height:35px; width:200px; z-index:3; 
+  top: 30px; right: 0px;
+  font-size: 20px;
+}*/
 
 #logoimg {
+  position:absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
 position: absolute;
 top:35px;
-left: 300px;
+/*left: 300px;*/
 }
 #gressimg{
   position: absolute;
   top: 122px;
   left: 0px;
-  height: 50px;
+  width: 20%;
   z-index: 3;
 }
 #gressimg2{
   position: absolute;
   top: 122px;
-  left: 200px;
-  height: 50px;
+  left: 20%;
+  width: 20%;
   z-index: 3;
 }
 #gressimg3{
   position: absolute;
   top: 122px;
-  left: 400px;
-  height: 50px;
+  left: 40%;
+  width: 20%;
   z-index: 3;
 }
 #gressimg4{
   position: absolute;
   top: 122px;
-  left: 600px;
-  height: 50px;
+  left: 60%;
+  width: 20%;
   z-index: 3;
 }
 #gressimg5{
   position: absolute;
   top: 122px;
-  left: 800px;
-  height: 50px;
+  left: 80%;
+  width: 20%;
   z-index: 3;
+}
+#loginBlock{
+  position: absolute;
+  top: 0px;
 }

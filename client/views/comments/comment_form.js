@@ -1,4 +1,6 @@
 Template.comment_form.rendered = function(){
+  $('#headImg').css('width','400px');
+  $('#headImg').css('height','400px');
   if(Meteor.user() && !this.editor){
     this.editor = new EpicEditor(EpicEditorOptions).load();
     $(this.editor.editor).bind('keydown', 'meta+return', function(){

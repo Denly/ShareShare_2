@@ -36,7 +36,7 @@ Template.post_submit.rendered = function(){
 Template.post_submit.events({
   'click input[type=submit]': function(e, instance){
     e.preventDefault();
-    alert('Clicked submit');
+    //alert('Clicked submit');
     $(e.target).addClass('disabled');
 
     if(!Meteor.user()){
@@ -84,7 +84,7 @@ Template.post_submit.events({
       var cleanUrl = (url.substring(0, 7) == "http://" || url.substring(0, 8) == "https://") ? url : "http://"+url;
       properties.url = cleanUrl;
     }
-alert('Before Call; after ifurl');
+//alert('Before Call; after ifurl');
 
     Meteor.call('post', properties, function(error, postId) {//call post(properties) method in post.js
 /*****
@@ -115,7 +115,7 @@ alert('Before Call; after ifurl');
       }
   *****/
     });
-    alert('Out the Call');
+    //alert('Out the Call');
   },
   'click .get-title-link': function(e){
     e.preventDefault();

@@ -35,10 +35,10 @@
           <div class="comment-text markdown">This message only owners can see</div>
           {{/if}}
         {{else}}
-          <div class="comment-text markdown">normal message: {{{body_formatted}}}</div>
+          <div class="comment-text markdown">{{{body_formatted}}}</div>
         {{/if}}
           <div>
-            <input type="button" class="isowner button" id="{{authorName}}" value="He is the next Owner" onClick="reply_click(this.id)">
+            <input type="button" class="isowner button" id="{{authorName}}" value="He/She is the next Keeper" onClick="reply_click(this.id)">
           </div>
           {{#if getSetting "nestedComments" true}}
             <a href="/comments/{{_id}}/reply" class="comment-reply goto-comment">{{i18n "Reply"}}</a>
